@@ -11,8 +11,7 @@ class EmployeeGetPostAPIView(APIView):
         try:
             employee = Employee.objects.all()
         except Employee.DoesNotExist:
-            return Response(data={'msg': 'Employee not found', 'success': 'false', 'employee': []},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'msg': 'Employee not found', 'success': 'false', 'employee': []},status=status.HTTP_404_NOT_FOUND)
         if not employee:
             return Response(data=None, status=status.HTTP_204_NO_CONTENT)
         serializer = EmployeeModelSerializer(employee, many=True)
@@ -26,15 +25,12 @@ class EmployeeGetPostAPIView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                data={'msg': 'Employee created successfully',
-                      'success': 'true', 'empid': request.data.get('regid')},
-                status=status.HTTP_201_CREATED)
+                data={'msg': 'Employee created successfully','success': 'true', 'empid': request.data.get('regid')},status=status.HTTP_201_CREATED)
         else:
             if Employee.objects.filter(email=request.data.get('email')):
                 return Response(data={'msg': 'Employee Already Exist', 'success': 'false'}, status=status.HTTP_200_OK)
             else:
-                return Response(data={'msg': 'Invalid Body Request', 'success': 'false'},
-                                status=status.HTTP_404_NOT_FOUND)
+                return Response(data={'msg': 'Invalid Body Request', 'success': 'false'},status=status.HTTP_404_NOT_FOUND)
 
 
 class EmployeeGetPutDeleteAPIView(APIView):
@@ -50,11 +46,9 @@ class EmployeeGetPutDeleteAPIView(APIView):
     def delete(self, request, pk=None):
         if pk != '':
             try:
-                employee = Employee.objects.get(
-                    pk=pk)
+                employee = Employee.objects.get(pk=pk)
             except:
-                return Response(data={'msg': 'Employee with this regid Not Found', 'success': 'false'},
-                                status=status.HTTP_404_NOT_FOUND)
+                return Response(data={'msg': 'Employee with this regid Not Found', 'success': 'false'},status=status.HTTP_404_NOT_FOUND)
             employee.delete()
             return Response(data={'msg': 'Employee deleted successfully!', 'success': 'true'}, status=status.HTTP_200_OK)
         else:
@@ -62,20 +56,15 @@ class EmployeeGetPutDeleteAPIView(APIView):
 
     def put(self, request, pk=None):
         try:
-            employee = Employee.objects.get(
-                pk=pk)
+            employee = Employee.objects.get(pk=pk)
         except Employee.DoesNotExist:
             return Response(data={'msg': 'no Employee found with this regid'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = EmployeeModelSerializer(
-            data=request.data, instance=employee)
+        serializer = EmployeeModelSerializer(data=request.data, instance=employee)
         if serializer.is_valid():
             serializer.save()
-            return Response(data={'msg': 'Employee details updated successfully', 'success': 'true'},
-                            status=status.HTTP_200_OK)
+            return Response(data={'msg': 'Employee details updated successfully', 'success': 'true'},status=status.HTTP_200_OK)
         else:
             if Employee.objects.filter(email=request.data.get('email')):
-                return Response(data={'msg': 'Employee details updation failed', 'success': 'false'},
-                                status=status.HTTP_200_OK)
+                return Response(data={'msg': 'Employee details updation failed', 'success': 'false'},status=status.HTTP_200_OK)
             else:
-                return Response(data={'msg': 'invalid body request', 'success': 'false'},
-                                status=status.HTTP_404_NOT_FOUND)
+                return Response(data={'msg': 'Invalid body request', 'success': 'false'},status=status.HTTP_404_NOT_FOUND)

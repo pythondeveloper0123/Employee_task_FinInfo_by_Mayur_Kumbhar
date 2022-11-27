@@ -6,7 +6,12 @@ from drf_writable_nested import WritableNestedModelSerializer
 class EmployeeAddressModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeAddress
-        fields = ('hno', 'street', 'city', 'state', )
+        fields = (
+            'hno', 
+            'street', 
+            'city', 
+            'state' 
+        )
 
     def create(self, validated_data):
         return EmployeeAddress.objects.create(**validated_data)
@@ -15,7 +20,12 @@ class EmployeeAddressModelSerializer(serializers.ModelSerializer):
 class EmployeeWorkExperienceModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeWorkExperience
-        fields = ('companyName', 'fromDate', 'toDate', 'address', )
+        fields = (
+            'companyName', 
+            'fromDate', 
+            'toDate', 
+            'address' 
+        )
 
     def create(self, validated_data):
         return EmployeeWorkExperience.objects.create(**validated_data)
@@ -24,7 +34,10 @@ class EmployeeWorkExperienceModelSerializer(serializers.ModelSerializer):
 class EmployeeQualificationModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeQualification
-        fields = ('qualificationName', 'percentage', )
+        fields = (
+            'qualificationName', 
+            'percentage' 
+        )
 
     def create(self, validated_data):
         return EmployeeQualification.objects.create(**validated_data)
@@ -33,7 +46,10 @@ class EmployeeQualificationModelSerializer(serializers.ModelSerializer):
 class EmployeeProjectsModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeProjects
-        fields = ('title', 'description', )
+        fields = (
+            'title', 
+            'description' 
+        )
 
     def create(self, validated_data):
         return EmployeeProjects.objects.create(**validated_data)
@@ -47,5 +63,16 @@ class EmployeeModelSerializer(WritableNestedModelSerializer, serializers.ModelSe
 
     class Meta:
         model = Employee
-        fields = ('regid', 'name', 'email', 'age', 'gender', 'phoneNo',
-                  'EmployeeAddress', 'EmployeeWorkExperience', 'EmployeeQualification', 'EmployeeProjects', 'photo')
+        fields = (
+            'regid', 
+            'name', 
+            'email', 
+            'age', 
+            'gender', 
+            'phoneNo',
+            'EmployeeAddress', 
+            'EmployeeWorkExperience', 
+            'EmployeeQualification', 
+            'EmployeeProjects', 
+            'photo'
+        )

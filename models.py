@@ -15,8 +15,7 @@ class Employee(models.Model):
 
 
 class EmployeeAddress(models.Model):
-    employee = models.OneToOneField(
-        Employee, on_delete=models.CASCADE,  related_name='EmployeeAddress')
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE,  related_name='EmployeeAddress')
     hno = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
@@ -27,8 +26,7 @@ class EmployeeAddress(models.Model):
 
 
 class EmployeeWorkExperience(models.Model):
-    employee = models.ForeignKey(
-        Employee, on_delete=models.CASCADE,  related_name='EmployeeWorkExperience')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,  related_name='EmployeeWorkExperience')
     companyName = models.CharField(max_length=100)
     fromDate = models.CharField(max_length=100)
     toDate = models.CharField(max_length=100)
@@ -39,8 +37,7 @@ class EmployeeWorkExperience(models.Model):
 
 
 class EmployeeQualification(models.Model):
-    employee = models.ForeignKey(
-        Employee, on_delete=models.CASCADE,  related_name='EmployeeQualification')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,  related_name='EmployeeQualification')
     qualificationName = models.CharField(max_length=100)
     percentage = models.FloatField()
 
@@ -49,8 +46,7 @@ class EmployeeQualification(models.Model):
 
 
 class EmployeeProjects(models.Model):
-    employee = models.ForeignKey(
-        Employee, on_delete=models.CASCADE,  related_name='EmployeeProjects')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,  related_name='EmployeeProjects')
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 

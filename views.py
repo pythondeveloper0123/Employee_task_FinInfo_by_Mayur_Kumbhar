@@ -24,8 +24,7 @@ class EmployeeGetPostAPIView(APIView):
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if serializer.is_valid():
             serializer.save()
-            return Response(
-                data={'msg': 'Employee created successfully','success': 'true', 'empid': request.data.get('regid')},status=status.HTTP_201_CREATED)
+            return Response(data={'msg': 'Employee created successfully','success': 'true', 'empid': request.data.get('regid')},status=status.HTTP_201_CREATED)
         else:
             if Employee.objects.filter(email=request.data.get('email')):
                 return Response(data={'msg': 'Employee Already Exist', 'success': 'false'}, status=status.HTTP_200_OK)
@@ -38,8 +37,7 @@ class EmployeeGetPutDeleteAPIView(APIView):
         try:
             employee = Employee.objects.get(pk=pk)
         except Employee.DoesNotExist:
-            return Response(data={'msg': 'Employee Not Found', 'success': 'false', 'employee': []},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'msg': 'Employee Not Found', 'success': 'false', 'employee': []},status=status.HTTP_404_NOT_FOUND)
         serializer = EmployeeModelSerializer(employee)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
